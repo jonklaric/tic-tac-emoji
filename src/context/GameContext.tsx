@@ -105,7 +105,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
 
       const { winner, winningPattern } = checkWinner(newBoard)
       let newStatus: GameStatus = state.status
-      let newStats = { ...state.stats }
+      const newStats = { ...state.stats }
 
       if (winner === 'PLAYER') {
         newStatus = 'PLAYER_WON'
