@@ -3,10 +3,11 @@ import { useNavigate } from '@tanstack/react-router'
 import { useGame } from '../context/GameContext'
 import { EmojiChoice } from '../types'
 
+
 const EMOJI_OPTIONS = [
   '😀', '😎', '🤣', '😍', '🤩', '🥳', '😇', '🤠', '👽', '👻',
   '🐶', '🐱', '🦊', '🦁', '🐯', '🐮', '🐷', '🐸', '🐵', '🐔',
-  '🍎', '🍌', '🍉', '🍇', '🍓', '🍒', '🍑', '🥥', '🥝', '🍍'
+  '🎮', '🌈', '🎉', '🎇', '🔥', '💕', '💯', '🥥', '🥝', '🍓'
 ]
 
 export function EmojiSelection() {
@@ -16,6 +17,37 @@ export function EmojiSelection() {
     player: '',
     computer: ''
   })
+
+  // Function to get a random emoji for the player
+  const getRandomPlayerEmoji = () => {
+    const availableEmojis = EMOJI_OPTIONS.filter(emoji => emoji !== selectedEmojis.computer)
+    const randomIndex = Math.floor(Math.random() * availableEmojis.length)
+    handlePlayerEmojiSelect(availableEmojis[randomIndex])
+  }
+
+  // Function to get a random emoji for the computer
+  const getRandomComputerEmoji = () => {
+    const availableEmojis = EMOJI_OPTIONS.filter(emoji => emoji !== selectedEmojis.player)
+    const randomIndex = Math.floor(Math.random() * availableEmojis.length)
+    handleComputerEmojiSelect(availableEmojis[randomIndex])
+  }
+
+  // Function to get random emojis for both player and computer
+  const getRandomEmojisForBoth = () => {
+    // Get a random emoji for the player
+    const playerRandomIndex = Math.floor(Math.random() * EMOJI_OPTIONS.length)
+    const playerEmoji = EMOJI_OPTIONS[playerRandomIndex]
+    
+    // Get a random emoji for the computer (different from player's)
+    const availableEmojis = EMOJI_OPTIONS.filter(emoji => emoji !== playerEmoji)
+    const computerRandomIndex = Math.floor(Math.random() * availableEmojis.length)
+    const computerEmoji = availableEmojis[computerRandomIndex]
+    
+    setSelectedEmojis({
+      player: playerEmoji,
+      computer: computerEmoji
+    })
+  }
 
   const handlePlayerEmojiSelect = (emoji: string) => {
     setSelectedEmojis(prev => ({ ...prev, player: emoji }))
@@ -78,18 +110,41 @@ export function EmojiSelection() {
       </div>
       
       <div className="mt-10 text-center">
-        <div className="flex justify-center gap-6 text-3xl mb-6">
-          <div className="flex items-center gap-2">
-            <span>You:</span>
-            <span className="text-4xl">
-              {selectedEmojis.player || '?'}
-            </span>
+        <div className="flex flex-col items-center mb-6">
+          <div className="flex justify-center gap-6 text-3xl mb-4">
+            <div className="flex items-center gap-2">
+              <span>You:</span>
+              <span className="text-4xl">
+                {selectedEmojis.player || '?'}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span>Computer:</span>
+              <span className="text-4xl">
+                {selectedEmojis.computer || '?'}
+              </span>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span>Computer:</span>
-            <span className="text-4xl">
-              {selectedEmojis.computer || '?'}
-            </span>
+          
+          <div className="flex gap-3 mb-6">
+            <button
+              className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 text-sm"
+              onClick={getRandomPlayerEmoji}
+            >
+              Random Player Emoji
+            </button>
+            <button
+              className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 text-sm"
+              onClick={getRandomEmojisForBoth}
+            >
+              Random Both
+            </button>
+            <button
+              className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 text-sm"
+              onClick={getRandomComputerEmoji}
+            >
+              Random Computer Emoji
+            </button>
           </div>
         </div>
         
