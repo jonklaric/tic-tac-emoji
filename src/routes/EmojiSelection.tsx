@@ -128,13 +128,13 @@ export function EmojiSelection() {
           
           <div className="flex gap-3 mb-6">
             <button
-              className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 text-sm"
+              className="px-4 py-2 mr-4 bg-purple-500 text-white rounded-lg hover:bg-purple-600 text-sm"
               onClick={getRandomPlayerEmoji}
             >
               Random Player Emoji
             </button>
             <button
-              className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 text-sm"
+              className="px-4 py-2 mr-4 bg-purple-500 text-white rounded-lg hover:bg-purple-600 text-sm"
               onClick={getRandomEmojisForBoth}
             >
               Random Both
