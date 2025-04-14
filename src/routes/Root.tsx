@@ -10,7 +10,7 @@ export function Root() {
         <Outlet />
       </main>
       <footer className="py-2 px-6 bg-gray-800 text-white text-sm text-center">
-        <p>© {new Date().getFullYear()} Tic-Tac-Emoji</p>
+        <p>© {new Date().getFullYear()} Jonathan Klaric</p>
       </footer>
     </div>
   )
