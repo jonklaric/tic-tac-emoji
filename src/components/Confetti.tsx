@@ -18,7 +18,7 @@ interface Particle {
 
 export function Confetti({ active }: ConfettiProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const animationFrameId = useRef<number>()
+  const animationFrameId = useRef<number | null>(null)
   
   useEffect(() => {
     if (!active || !canvasRef.current) return
@@ -85,7 +85,9 @@ export function Confetti({ active }: ConfettiProps) {
       
       // Stop animation if no particles left
       if (particles.length === 0) {
-        cancelAnimationFrame(animationFrameId.current!)
+        if (animationFrameId.current !== null) {
+          cancelAnimationFrame(animationFrameId.current)
+        }
         return
       }
       
@@ -97,7 +99,7 @@ export function Confetti({ active }: ConfettiProps) {
     }
     
     return () => {
-      if (animationFrameId.current) {
+      if (animationFrameId.current !== null) {
         cancelAnimationFrame(animationFrameId.current)
       }
     }
